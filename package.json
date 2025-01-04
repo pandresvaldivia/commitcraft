@@ -1,0 +1,18 @@
+{
+  "name": "commitcraft",
+  "description": "A simple CLI tool for generating and standardizing commit messages",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "./src/app.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Andres Valdivia <pandresdev@gmail.com> (https://github.com/pandresvaldivia)",
+  "license": "MIT",
+  "dependencies": {
+    "@inquirer/prompts": "^7.2.1"
+  }
+}
