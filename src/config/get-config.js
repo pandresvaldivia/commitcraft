@@ -3,7 +3,8 @@ import stripBom from 'strip-bom';
 import { isUtf8 } from 'node:buffer';
 import { CONFIG_FILES } from '../constants/config.constant.js';
 import { findConfigFile } from './find-config.js';
-import { isJsFile } from '../helpers/file.helper.js';
+import { isJsFile, isJsonFile } from '../helpers/file.helper.js';
+import { isArrayEmpty } from '../helpers/array.helper.js';
 
 /**
  * Loads the configuration file.
@@ -50,6 +51,18 @@ async function getConfigContent(path, isJsFile = false) {
       }
 
       return module.default;
+    }
+
+    if (isJsonFile(path)) {
+      const json = await import(path, {
+        with: { type: 'json' },
+      });
+
+      if (isArrayEmpty(Object.keys(json.default))) {
+        throw new Error('JSON configuration is empty.');
+      }
+
+      return json.default;
     }
 
     const jsonString = readConfigFileContent(path);
